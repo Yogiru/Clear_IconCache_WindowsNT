@@ -1,0 +1,193 @@
+Add(MainForm,2953706,105,126)
+{
+ Width=161
+ Height=29
+ Color=16777215
+ Font=[Verdana,8,0,128,1]
+ Enabled=1
+ KeyPreview=1
+ Ctl3D=0
+ WinStyle=1
+ AlphaBlendValue=200
+ Caption=" Clear(IconCache)"
+ BorderStyle=0
+ Icon=[ZIP7E04000078DAB5945D4853611CC6DF306841811766AC8B0C2F5C12812CC762373112BCDD95977D8E9132C6EC26534A11B6CCA26C33B25A6899E96C86F32BB41AD55688CCD4C826CC5948177691E1C7D68ECA9EDEFF2BE730627DDC740EBF73F83FFFE7E1BCE77DCF7B18DBC2CFEC6CC6AFFBD899AD8CE532C6F673B8C4954D5D1C2AF65F0F83C1B05366BB5A5A50A9D790AE6542CE6AB55A753A1A63AA59B5670DF98529FCDACBC95D07638996BCBCEBE2C58A8B8B3599602CEED8B197BCAB66593B741894E5C49D54875EF861B5D6FC9682226057FE064A4A3E42ADDE10D9B2321FECB66AC8796F9BFB8F941E979F994087A74568EE6B4E25EFF7DE155CADAF52E8EDBC2D78707348C9B2AC042E9C5D16DEF4FCB3810E416FBF1FD1D82CCED5348ABAE77E6833B7ED072AEA81CB2D80460B184B21F23497940F3CF50962B11892C924AC9663686AFA2EB207B83F1884A2BB1B9670C40814E4A7A86FF0B6DDC03D9753203FBFDC6C16D99CDDEBB8686F5774CA93CFD5D08C13A7C49C1822936FF1613C88E7839DF07779044507016B3930D2EF15E37A35FC44E9918FFCAD77DCA0B5A7BC242D8BF149521C0E0770FA24B0B2388FC5AF73905617B8FE8DB324FA9BBE6525FF3EFC7A627A6A0C5F3E47D1F718E87E08C466C2884CF171BD0B223A3D86D999717C8A4E617E2E227CE4F7DC724D50FE4D60C0160A0C627234807068048EEA0A34D6DAF9FC7763B8AF0B81211FAED4550A9DFAE4237FCFA3565BA63DA4D3E9DAF9BA5EB2582C47A9A63BD5A4FFCB1ED4EBF585DC5BC5796932994077AA49CFE4A755A0AF7AE33C63A94AF1B3F82B75598CADB4F24C2D633F013B3E04CD]
+ TaskBar=1
+ Point(Handle)
+ Point(doHeight)
+ link(onCreate,10165147:doStart,[])
+}
+Add(Thread,10165147,175,140)
+{
+ Delay=100
+ FastStop=0
+ link(onExec,13568334:doInfo,[])
+ link(onSyncExec,2872872:doPopup,[(219,153)(219,174)(93,174)(93,195)])
+}
+Add(MT_Memory,12606705,483,140)
+{
+ link(onData,10481739:doEvent1,[])
+}
+Add(MT_Add,7489557,420,140)
+{
+ link(onAdd,12606705:doValue,[])
+}
+Add(FileSearch,15018035,357,140)
+{
+ Ext="IconCache*.db"
+ TimeType=1
+ Format="Y.M.D h:m"
+ Point(DateCreate)
+ Point(DateModify)
+ link(onSearch,7489557:doAdd,[])
+ link(Dir,14508248:GetData,[])
+}
+Add(LineBreak,6169228,42,147)
+{
+ Caption="x"
+ Color=255
+ link(Out,2953706:doClose,[])
+ Primary=[4529080,392,210]
+}
+Add(WinTools,2872872,105,182)
+{
+ link(Handle,2953706:Handle,[])
+}
+Add(Informer,13568334,266,140)
+{
+ link(onContinue,15018035:doSearch,[])
+ link(onInfo,2173990:doExec,[(331,153)(331,195)])
+}
+Add(WinExec,2173990,357,189)
+{
+ FileName="taskkill.exe"
+ Param="/f /im explorer.exe"
+}
+Add(WinExec,12283281,378,357)
+{
+ FileName="C:\windows\explorer.exe"
+ link(onExec,4529080:In,[])
+}
+Add(FileTools,12348371,707,126)
+{
+ DelToRecycle=1
+ link(onEnd,6390992:doNext,[])
+ link(FileName,7374561:Var3,[(713,114)])
+}
+Add(Hub,10481739,553,140)
+{
+ link(onEvent1,6511647:doPart,[])
+ link(onEvent2,3431457:doNext,[(581,153)(581,195)])
+}
+Add(CounterEx,3431457,588,189)
+{
+}
+Add(CounterEx,6390992,770,126)
+{
+}
+Add(DoData,4679401,504,287)
+{
+ link(onEventData,1815584:In,[])
+ link(Data,13790691:FString,[(510,275)(475,275)(475,331)(440,331)])
+}
+Add(MMTimer,14582578,294,287)
+{
+ AutoStop=6
+ Point(onStop)
+ link(onTimer,7939506:doNext,[])
+ link(onStop,12283281:doExec,[(352,300)(352,363)])
+}
+Add(CounterEx,7939506,371,287)
+{
+ Max=6
+ Direct=1
+ Default=6
+ Point(onThroughMin)
+ link(onNext,13790691:doString,[])
+}
+Add(LineBreak,16720833,42,84)
+{
+ Caption=">>"
+ Color=65280
+ link(Out,461542:doWork1,[])
+ Primary=[1815584,518,203]
+}
+Add(FilePartElm,6511647,588,140)
+{
+ link(onPart,16019006:doValue,[])
+ link(FileName,7374561:Var2,[])
+}
+Add(GetDataEx,7374561,588,109)
+{
+ Angle=3
+ link(Data,12606705:Value,[(541,114)(541,184)(489,184)])
+}
+Add(Memory,16019006,644,140)
+{
+ link(onData,12348371:doDelete,[])
+}
+Add(ChildPanel,461542,105,84)
+{
+}
+BEGIN_SDK
+  Add(EditMulti,8722410,21,21)
+  {
+   WorkCount=1
+   link(doWork1,7490158:doCaption,[(28,27)(28,41)])
+  }
+  Add(Panel,7490158,63,35)
+  {
+   Width=161
+   Height=29
+   Align=5
+   Color=128
+   Font=[MS Sans Serif,9,0,15793151,1]
+   KeyPreview=1
+   Ctl3D=0
+   WinStyle=1
+   Caption="Очищено: - из -  [ 5 сек.]"
+   BorderWidth=0
+   BevelInner=0
+   BevelWidth=0
+   Alignment=2
+  }
+END_SDK
+Add(FormatStr,13790691,434,287)
+{
+ DataCount=3
+ Mask="Очищено: %1 из %2  [ %3 сек.]"
+ Point(FString)
+ link(onFString,4679401:doData,[])
+ link(Str1,2552088:Var,[])
+ link(Str2,14716020:Var,[])
+ link(Str3,7939506:Count,[(454,275)(416,275)(416,331)(377,331)])
+}
+Add(EventFromData,14508248,364,63)
+{
+ link(onEvent,1112705:doExpand,[])
+ link(Data,1112705:Result,[(370,51)(403,51)(403,107)(436,107)])
+}
+Add(EnvVars,1112705,430,63)
+{
+ String="%LOCALAPPDATA%"
+ Point(doGet)
+ Point(onEnum)
+ Point(Result)
+ link(onExpand,14508248:doData,[(474,69)(474,57)(352,57)(352,69)])
+}
+Add(LineBreak,2805348,588,238)
+{
+ Caption="all"
+ Type=1
+ Color=65535
+ link(Data,3431457:Count,[])
+ Primary=[14716020,-147,7]
+}
+Add(LineBreak,12970932,770,175)
+{
+ Caption="del"
+ Type=1
+ Color=65535
+ link(Data,6390992:Count,[])
+ Primary=[2552088,-336,42]
+}
